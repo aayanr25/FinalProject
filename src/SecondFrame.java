@@ -1,15 +1,15 @@
 import javax.swing.*;
 
-public class MainFrame implements Runnable {
-    private GraphicsPanel panel;
-    public MainFrame() {
-        JFrame frame = new JFrame("Baseball");
+public class SecondFrame implements Runnable {
+    private PitcherPanel panel;
+    public SecondFrame() {
+        JFrame frame = new JFrame("Pitcher");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(960, 651); // 540 height of image + 40 for window menu bar
+        frame.setSize(612, 460); // 540 height of image + 40 for window menu bar
         frame.setLocationRelativeTo(null); // auto-centers frame in screen
 
         // create and add panel
-        panel = new GraphicsPanel();
+        panel = new PitcherPanel();
         frame.add(panel);
 
         // display the frame
