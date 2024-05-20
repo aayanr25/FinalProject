@@ -20,6 +20,11 @@ public class PitcherPanel extends JPanel implements KeyListener, MouseListener, 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(background, 0, 0, null);
+        try {
+            g.drawImage(ImageIO.read(new File("src/pitcher0.png")), 200, 150, null);
+        } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
 
     }
 
