@@ -9,9 +9,17 @@ import java.util.ArrayList;
 
 public class PitcherPanel extends JPanel implements KeyListener, MouseListener, ActionListener {
     private BufferedImage background;
+    private BufferedImage restImage;
+    private Pitcher pitcher;
     public PitcherPanel() {
+        pitcher = new Pitcher();
         try {
             background = ImageIO.read(new File("src/background2.jpg"));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+           restImage = ImageIO.read(new File("src/PitcherFrames/pitcher0.png"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -20,11 +28,9 @@ public class PitcherPanel extends JPanel implements KeyListener, MouseListener, 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(background, 0, 0, null);
-        try {
-            g.drawImage(ImageIO.read(new File("src/pitcher0.png")), 200, 150, null);
-        } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
+        g.drawImage(pitcher.getImage(), 225, 75, null);
+
+
 
     }
 
