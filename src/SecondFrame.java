@@ -21,6 +21,8 @@ public class SecondFrame implements Runnable {
     }
     @Override
     public void run() {
-
+        while (true) {
+            panel.repaint();
+        }
     }
 }
