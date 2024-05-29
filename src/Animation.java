@@ -32,7 +32,7 @@ public class Animation implements ActionListener {
         if (e.getSource() instanceof Timer) {
             //This advances the animation to the next frame
             //It also uses modulus to reset the frame to the beginning after the last frame
-            //In other words, this allows our animation to loop
+            //In other words, this allows our animation to loop\
             currentFrame = (currentFrame + 1) % frames.size();
         }
     }

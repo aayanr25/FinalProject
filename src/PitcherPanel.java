@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class PitcherPanel extends JPanel implements KeyListener, MouseListener, ActionListener {
     private BufferedImage background;
-    private BufferedImage restImage;
+    private JButton fastball;
     private Pitcher pitcher;
     public PitcherPanel() {
         pitcher = new Pitcher();
@@ -18,17 +18,13 @@ public class PitcherPanel extends JPanel implements KeyListener, MouseListener, 
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-        try {
-           restImage = ImageIO.read(new File("src/PitcherFrames/pitcher0.png"));
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+
     }
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(background, 0, 0, null);
-        g.drawImage(pitcher.getImage(), 225, 75, null);
+        g.drawImage(pitcher.restImage(), 100, 60, null);
 
 
 
@@ -36,7 +32,12 @@ public class PitcherPanel extends JPanel implements KeyListener, MouseListener, 
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() instanceof JButton) {
+            JButton button = (JButton) e.getSource();
+            if (button == fastball) {
 
+            }
+        }
     }
 
     @Override
