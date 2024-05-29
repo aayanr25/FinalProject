@@ -11,6 +11,7 @@ public class PitcherPanel extends JPanel implements KeyListener, MouseListener, 
     private BufferedImage background;
     private JButton fastball;
     private Pitcher pitcher;
+    private boolean pitchThrown;
     public PitcherPanel() {
         pitcher = new Pitcher();
         try {
@@ -18,13 +19,21 @@ public class PitcherPanel extends JPanel implements KeyListener, MouseListener, 
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+        pitchThrown = true;
 
     }
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(background, 0, 0, null);
-        g.drawImage(pitcher.restImage(), 100, 60, null);
+        if (pitchThrown) {
+            for (int i = 0; i < 6; i++) {
+                g.drawImage(pitcher.throwPitch(), 100, 60, null);
+            }
+        } else {
+            g.drawImage(pitcher.restImage(), 100, 60, null);
+        }
+        pitchThrown = false;
 
 
 

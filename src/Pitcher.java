@@ -23,12 +23,7 @@ public class Pitcher {
     }
 
     public BufferedImage throwPitch() {
-        if (num < 5) {
-            num++;
-            return pitch.getActiveFrame();
-        } else {
-            return restImage();
-        }
+        return pitch.getActiveFrame();
     }
 
     public BufferedImage restImage() {
