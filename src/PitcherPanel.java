@@ -10,8 +10,10 @@ import java.util.ArrayList;
 public class PitcherPanel extends JPanel implements KeyListener, MouseListener, ActionListener {
     private BufferedImage background;
     private JButton fastball;
+    private JButton curveball;
     private Pitcher pitcher;
     private boolean pitchThrown;
+    private Timer animationTimer;
     public PitcherPanel() {
         pitcher = new Pitcher();
         try {
@@ -19,24 +21,31 @@ public class PitcherPanel extends JPanel implements KeyListener, MouseListener, 
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-        pitchThrown = true;
+        pitchThrown = false;
+        fastball = new JButton("Fastball");
+        add(fastball);
+        fastball.addActionListener(this);
+        curveball = new JButton("Curveball");
+        add(curveball);
+        curveball.addActionListener(this);
 
+        animationTimer = new Timer(200, this);
+        animationTimer.start();
     }
+
+
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(background, 0, 0, null);
+        fastball.setLocation(50, 400);
+        curveball.setLocation(150, 400);
         if (pitchThrown) {
-            for (int i = 0; i < 6; i++) {
-                g.drawImage(pitcher.throwPitch(), 100, 60, null);
-            }
+            g.drawImage(pitcher.getFrame(), 100, 60, null);
         } else {
             g.drawImage(pitcher.restImage(), 100, 60, null);
         }
-        pitchThrown = false;
-
-
-
     }
 
     @Override
@@ -44,10 +53,24 @@ public class PitcherPanel extends JPanel implements KeyListener, MouseListener, 
         if (e.getSource() instanceof JButton) {
             JButton button = (JButton) e.getSource();
             if (button == fastball) {
+                pitcher.throwPitch();
+                pitchThrown = true;
+            } else if (button == curveball) {
+                pitcher.throwPitch();
+                pitchThrown = true;
+            }
 
+        }
+        if (e.getSource() instanceof Timer) {
+            if (pitchThrown) {
+                repaint();
+            }
+            if (!pitcher.animationRunning()) {
+                pitchThrown = false;
             }
         }
     }
+
 
     @Override
     public void keyTyped(KeyEvent e) {

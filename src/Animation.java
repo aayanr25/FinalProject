@@ -8,6 +8,7 @@ public class Animation implements ActionListener {
     private ArrayList<BufferedImage> frames;
     private Timer timer;
     private int currentFrame;
+    private boolean loop;
 
     public Animation(ArrayList<BufferedImage> frames, int delay) {
         this.frames = frames;
@@ -30,10 +31,18 @@ public class Animation implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof Timer) {
-            //This advances the animation to the next frame
-            //It also uses modulus to reset the frame to the beginning after the last frame
-            //In other words, this allows our animation to loop\
             currentFrame = (currentFrame + 1) % frames.size();
+            if (currentFrame == 0) {
+                stop();
+            }
         }
+    }
+    public void start() {
+        currentFrame = 0;
+        timer.start();
+    }
+
+    public void stop() {
+        timer.stop();
     }
 }

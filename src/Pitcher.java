@@ -10,7 +10,7 @@ public class Pitcher {
     private static int num;
     private ArrayList<BufferedImage> pitchAnimation;
     public Pitcher() {
-        ArrayList<BufferedImage> pitchAnimation = new ArrayList<>();
+        pitchAnimation = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
             String name = "src/PitcherFrames/pitcher" + i + ".png";
             try {
@@ -22,8 +22,8 @@ public class Pitcher {
         pitch = new Animation(pitchAnimation, 200);
     }
 
-    public BufferedImage throwPitch() {
-        return pitch.getActiveFrame();
+    public void throwPitch() {
+        pitch.start();
     }
 
     public BufferedImage restImage() {
@@ -35,9 +35,16 @@ public class Pitcher {
         }
 
     }
-    public void throwFastball() {
-
+    public Animation getAnimation() {
+        return pitch;
     }
 
+    public BufferedImage getFrame() {
+        return pitch.getActiveFrame();
+    }
+
+    public boolean animationRunning() {
+        return pitch.getCurrentFrame() != 0 || pitch.getActiveFrame() == pitchAnimation.get(0);
+    }
 
 }
