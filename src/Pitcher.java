@@ -7,6 +7,9 @@ import java.util.ArrayList;
 
 public class Pitcher {
     private Animation pitch;
+    private int fastballSkill;
+    private int curveballSkill;
+    private int knuckleballSkill;
 
     private ArrayList<BufferedImage> pitchAnimation;
     public Pitcher() {
@@ -19,6 +22,9 @@ public class Pitcher {
                 System.out.println(e.getMessage());
             }
         }
+        fastballSkill = (int) (Math.random() * 100);
+        curveballSkill = (int) (Math.random() * 100);
+        knuckleballSkill = (int) (Math.random() * 100);
         pitch = new Animation(pitchAnimation, 200);
     }
 
@@ -34,6 +40,15 @@ public class Pitcher {
             return null;
         }
 
+    }
+    public int getFastballSkill() {
+        return fastballSkill;
+    }
+    public int getCurveballSkill() {
+        return curveballSkill;
+    }
+    public int getKnuckleballSkill() {
+        return knuckleballSkill;
     }
     public Animation getAnimation() {
         return pitch;

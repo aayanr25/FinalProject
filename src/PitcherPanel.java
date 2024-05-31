@@ -11,6 +11,7 @@ public class PitcherPanel extends JPanel implements KeyListener, MouseListener, 
     private BufferedImage background;
     private JButton fastball;
     private JButton curveball;
+    private JButton knuckleball;
     private Pitcher pitcher;
     private boolean pitchThrown;
     private Timer animationTimer;
@@ -28,6 +29,9 @@ public class PitcherPanel extends JPanel implements KeyListener, MouseListener, 
         curveball = new JButton("Curveball");
         add(curveball);
         curveball.addActionListener(this);
+        knuckleball = new JButton("Knuckleball");
+        add(knuckleball);
+        knuckleball.addActionListener(this);
 
         animationTimer = new Timer(200, this);
         animationTimer.start();
@@ -41,6 +45,7 @@ public class PitcherPanel extends JPanel implements KeyListener, MouseListener, 
         g.drawImage(background, 0, 0, null);
         fastball.setLocation(50, 400);
         curveball.setLocation(150, 400);
+        knuckleball.setLocation(250,400);
         if (pitchThrown) {
             g.drawImage(pitcher.getFrame(), 100, 60, null);
         } else {
@@ -52,12 +57,14 @@ public class PitcherPanel extends JPanel implements KeyListener, MouseListener, 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof JButton) {
             JButton button = (JButton) e.getSource();
+            pitcher.throwPitch();
+            pitchThrown = true;
             if (button == fastball) {
-                pitcher.throwPitch();
-                pitchThrown = true;
+
             } else if (button == curveball) {
-                pitcher.throwPitch();
-                pitchThrown = true;
+
+            } else if (button == knuckleball) {
+
             }
 
         }
