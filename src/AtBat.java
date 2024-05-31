@@ -6,6 +6,11 @@ public class AtBat {
     public AtBat(Pitcher pitcher, Hitter hitter) {
         this.pitcher = pitcher;
         this.hitter = hitter;
+        startAB();
+    }
+
+    private void startAB() {
+
     }
 
 }
