@@ -5,7 +5,7 @@ public class MainFrame implements Runnable {
     public MainFrame() {
         JFrame frame = new JFrame("Baseball");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(960, 651); // 540 height of image + 40 for window menu bar
+        frame.setSize(960, 651);
         frame.setLocationRelativeTo(null); // auto-centers frame in screen
 
         // create and add panel

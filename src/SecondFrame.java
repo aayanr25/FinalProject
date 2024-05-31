@@ -5,7 +5,7 @@ public class SecondFrame implements Runnable {
     public SecondFrame() {
         JFrame frame = new JFrame("Pitcher");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(612, 460); // 540 height of image + 40 for window menu bar
+        frame.setSize(612, 460);
         frame.setLocationRelativeTo(null); // auto-centers frame in screen
 
         // create and add panel

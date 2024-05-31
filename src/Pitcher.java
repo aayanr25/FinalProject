@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 public class Pitcher {
     private Animation pitch;
-    private static int num;
     private ArrayList<BufferedImage> pitchAnimation;
     public Pitcher() {
         pitchAnimation = new ArrayList<>();
