@@ -6,6 +6,9 @@ public class Game {
     private int currentHitter;
     private int runsAllowed;
     private int outs;
+    private boolean onFirst;
+    private boolean onSecond;
+    private boolean onThird;
 
     public Game(Pitcher pitcher) {
         this.pitcher = pitcher;

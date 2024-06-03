@@ -13,10 +13,12 @@ public class PitcherPanel extends JPanel implements KeyListener, MouseListener, 
     private JButton curveball;
     private JButton knuckleball;
     private Pitcher pitcher;
+    private Game game;
     private boolean pitchThrown;
     private Timer animationTimer;
     public PitcherPanel() {
         pitcher = new Pitcher();
+        game = new Game(pitcher);
         try {
             background = ImageIO.read(new File("src/background2.jpg"));
         } catch (IOException e) {

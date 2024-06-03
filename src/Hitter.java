@@ -11,4 +11,7 @@ public class Hitter {
     public int getHittingSkill() {
         return skill;
     }
+    public void changeHittingSkill(int factor) {
+        skill *= factor;
+    }
 }
