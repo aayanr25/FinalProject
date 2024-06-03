@@ -3,7 +3,9 @@ public class AtBat {
     private Hitter hitter;
     private int balls;
     private int strikes;
-    boolean inPlay;
+    private boolean inPlay;
+    private boolean out;
+
     public AtBat(Pitcher pitcher, Hitter hitter) {
         this.pitcher = pitcher;
         this.hitter = hitter;
@@ -11,6 +13,7 @@ public class AtBat {
     }
 
     private void startAB() {
+        out = false;
         while (strikes < 3 && balls < 4 && !inPlay) {
             // throw pitch
             boolean isStrike = false;
@@ -32,6 +35,9 @@ public class AtBat {
     }
     private void ballInPlay() {
 
+    }
+    public boolean out() {
+        return out;
     }
 
 }
