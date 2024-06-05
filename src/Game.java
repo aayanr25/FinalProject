@@ -16,13 +16,13 @@ public class Game {
     public Game(Pitcher pitcher) {
         this.pitcher = pitcher;
         initializeBattingOrder();
-        while(!gameOver) {
-            while (inning <= 9) {
-                playInning();
-            }
-            outs = 0;
-            inning++;
-        }
+//        while(!gameOver) {
+//            while (inning <= 9) {
+//                playInning();
+//            }
+//            outs = 0;
+//            inning++;
+//        }
     }
     public ArrayList<Hitter> getBattingOrder() {
         return battingOrder;

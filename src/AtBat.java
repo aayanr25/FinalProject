@@ -14,6 +14,7 @@ public class AtBat {
 
     private void startAB() {
         out = false;
+        inPlay = false;
         while (strikes < 3 && balls < 4 && !inPlay) {
             // throw pitch
             boolean isStrike = false;
@@ -22,14 +23,20 @@ public class AtBat {
                 isStrike = true;
             }
             if (isStrike) {
+                num = Math.random();
+                if (num > 0.6) {
+                    inPlay = true;
+                }
                 if (inPlay) {
                     ballInPlay();
+                    // display in play message
                 } else {
                     strikes++;
                     // display strike message
                 }
             } else {
                 balls++;
+                // display ball message
             }
         }
     }
