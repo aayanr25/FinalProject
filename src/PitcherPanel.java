@@ -5,7 +5,6 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class PitcherPanel extends JPanel implements KeyListener, MouseListener, ActionListener {
     private BufferedImage background;
@@ -16,14 +15,17 @@ public class PitcherPanel extends JPanel implements KeyListener, MouseListener, 
     private Game game;
     private boolean pitchThrown;
     private Timer animationTimer;
-    public PitcherPanel() {
-        pitcher = new Pitcher();
-        game = new Game(pitcher);
+
+    public PitcherPanel(Game game) {
+        this.game = game;
+        this.pitcher = game.getPitcher();
+
         try {
             background = ImageIO.read(new File("src/background2.jpg"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+
         pitchThrown = false;
         fastball = new JButton("Fastball");
         add(fastball);
@@ -35,11 +37,9 @@ public class PitcherPanel extends JPanel implements KeyListener, MouseListener, 
         add(knuckleball);
         knuckleball.addActionListener(this);
 
-        animationTimer = new Timer(200, this);
+        animationTimer = new Timer(50, this);
         animationTimer.start();
     }
-
-
 
     @Override
     public void paintComponent(Graphics g) {
@@ -47,9 +47,8 @@ public class PitcherPanel extends JPanel implements KeyListener, MouseListener, 
         g.drawImage(background, 0, 0, null);
         fastball.setLocation(50, 400);
         curveball.setLocation(150, 400);
-        knuckleball.setLocation(250,400);
         if (pitchThrown) {
-            g.drawImage(pitcher.getFrame(), 100, 60, null);
+            g.drawImage(pitcher.throwPitch(), 100, 60, null);
         } else {
             g.drawImage(pitcher.restImage(), 100, 60, null);
         }
@@ -57,67 +56,45 @@ public class PitcherPanel extends JPanel implements KeyListener, MouseListener, 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() instanceof JButton) {
-            JButton button = (JButton) e.getSource();
-            pitcher.throwPitch();
-            pitchThrown = true;
-            if (button == fastball) {
-
-            } else if (button == curveball) {
-
-            } else if (button == knuckleball) {
-
-            }
-
-        }
         if (e.getSource() instanceof Timer) {
             if (pitchThrown) {
                 repaint();
             }
-            if (!pitcher.animationRunning()) {
-                pitchThrown = false;
+        } else if (e.getSource() instanceof JButton) {
+            JButton button = (JButton) e.getSource();
+            if (button == fastball) {
+                pitchThrown = true;
+                pitcher.throwFastball();
+                game.playNextAtBat(); // Trigger the game logic for the next at-bat
+            } else if (button == curveball) {
+                pitchThrown = true;
+                // Implement curveball logic if needed
+                game.playNextAtBat(); // Trigger the game logic for the next at-bat
             }
         }
     }
 
+    @Override
+    public void keyTyped(KeyEvent e) {}
 
     @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
+    public void keyPressed(KeyEvent e) {}
 
     @Override
-    public void keyPressed(KeyEvent e) {
-
-    }
+    public void keyReleased(KeyEvent e) {}
 
     @Override
-    public void keyReleased(KeyEvent e) {
-
-    }
+    public void mouseClicked(MouseEvent e) {}
 
     @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
+    public void mousePressed(MouseEvent e) {}
 
     @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
+    public void mouseReleased(MouseEvent e) {}
 
     @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
+    public void mouseEntered(MouseEvent e) {}
 
     @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
+    public void mouseExited(MouseEvent e) {}
 }

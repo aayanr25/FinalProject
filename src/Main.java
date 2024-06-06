@@ -1,7 +1,9 @@
 public class Main {
     public static void main (String[] args) {
-        MainFrame f = new MainFrame();
-        SecondFrame e = new SecondFrame();
+        Game game = new Game();
+        game.setPitcher(new Pitcher(game));
+        MainFrame m = new MainFrame(game);
+        SecondFrame s = new SecondFrame(game);
     }
 }
 

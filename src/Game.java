@@ -4,7 +4,6 @@ public class Game {
     private Pitcher pitcher;
     private ArrayList<Hitter> battingOrder;
     private int placeInLineup;
-    private Hitter currentHitter;
     private int runsAllowed;
     private int outs;
     private int inning;
@@ -12,40 +11,72 @@ public class Game {
     private boolean onSecond;
     private boolean onThird;
     private boolean gameOver;
+    private GraphicsPanel graphicsPanel;
 
-    public Game(Pitcher pitcher) {
-        this.pitcher = pitcher;
+    public Game() {
+        inning = 1;
         initializeBattingOrder();
-//        while(!gameOver) {
-//            while (inning <= 9) {
-//                playInning();
-//            }
-//            outs = 0;
-//            inning++;
-//        }
     }
+    public void setPitcher(Pitcher pitcher) {
+        this.pitcher = pitcher;
+    }
+
+    public void setGraphicsPanel(GraphicsPanel graphicsPanel) {
+        this.graphicsPanel = graphicsPanel;
+    }
+
+    public GraphicsPanel getGraphicsPanel() {
+        return graphicsPanel;
+    }
+
     public ArrayList<Hitter> getBattingOrder() {
         return battingOrder;
     }
-    private void playInning() {
-        currentHitter = battingOrder.get(placeInLineup);
-        while (outs < 3) {
 
+    public int getRunsAllowed() {
+        return runsAllowed;
+    }
+
+    public int getInning() {
+        return inning;
+    }
+
+    public int getOuts() {
+        return outs;
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
+    }
+
+    public void playNextAtBat() {
+        Hitter currentHitter = battingOrder.get(placeInLineup);
+        AtBat currentAtBat = new AtBat(pitcher, currentHitter, this);
+        if (currentAtBat.isOut()) {
+            outs++;
+            if (outs >= 3) {
+                outs = 0;
+                inning++;
+                if (inning > 9) {
+                    gameOver = true;
+                }
+            }
+        } else {
+            // Handle hit logic
+            runsAllowed++; // Example increment
         }
-        AtBat current = new AtBat(pitcher, currentHitter);
+        placeInLineup = (placeInLineup + 1) % battingOrder.size();
+        graphicsPanel.updateDisplay();
     }
 
     private void initializeBattingOrder() {
         battingOrder = new ArrayList<>();
-        battingOrder.add(new Hitter(" ", (int) (Math.random() * 100)));
-        battingOrder.add(new Hitter(" ", (int) (Math.random() * 100)));
-        battingOrder.add(new Hitter(" ", (int) (Math.random() * 100)));
-        battingOrder.add(new Hitter(" ", (int) (Math.random() * 100)));
-        battingOrder.add(new Hitter(" ", (int) (Math.random() * 100)));
-        battingOrder.add(new Hitter(" ", (int) (Math.random() * 100)));
-        battingOrder.add(new Hitter(" ", (int) (Math.random() * 100)));
-        battingOrder.add(new Hitter(" ", (int) (Math.random() * 100)));
-        battingOrder.add(new Hitter(" ", (int) (Math.random() * 100)));
+        for (int i = 0; i < 9; i++) {
+            battingOrder.add(new Hitter("Hitter " + (i + 1), (int) (Math.random() * 100)));
+        }
     }
 
+    public Pitcher getPitcher() {
+        return pitcher;
+    }
 }

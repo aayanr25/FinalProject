@@ -1,70 +1,79 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-public class GraphicsPanel extends JPanel implements KeyListener, MouseListener, ActionListener {
+import java.util.Timer;
+import java.util.TimerTask;
+
+public class GraphicsPanel extends JPanel {
+    private Game game;
+    private String message;
     private BufferedImage background;
+    private int balls;
+    private int strikes;
+    private Timer messageTimer;
+    private boolean showMessage;
 
-
-    public GraphicsPanel() {
+    public GraphicsPanel(Game game) {
+        this.game = game;
+        this.message = "";
+        this.balls = 0;
+        this.strikes = 0;
+        this.showMessage = false;
+        setPreferredSize(new Dimension(800, 600));
         try {
             background = ImageIO.read(new File("src/background.jpg"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
+
     @Override
-    public void paintComponent(Graphics g) {
+    protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(background, 0, 0, null);
+        g.drawImage(background, 0,0, null);
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("Serif", Font.PLAIN, 14));
+        g.drawString("Balls: " + balls, 50, 50);
+        g.drawString("Strikes: " + strikes, 50, 70);
+        g.drawString("Runs Allowed: " + game.getRunsAllowed(), 50, 90);
+        g.drawString("Inning: " + game.getInning(), 50, 110);
+        g.drawString("Outs: " + game.getOuts(), 50, 130);
 
-    }
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-
+        if (showMessage && message != null) {
+            g.setFont(new Font("Serif", Font.BOLD, 48));
+            g.drawString(message, 300, 300);
+        }
     }
 
-    @Override
-    public void keyReleased(KeyEvent e) {
-
+    public void updateDisplay() {
+        repaint();
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
+    public void showMessage(String message, int duration) {
+        this.message = message;
+        this.showMessage = true;
+        updateDisplay();
 
+        if (messageTimer != null) {
+            messageTimer.cancel();
+        }
+
+        messageTimer = new Timer();
+        messageTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                showMessage = false;
+                updateDisplay();
+            }
+        }, duration);
     }
 
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
+    public void updateCount(int balls, int strikes) {
+        this.balls = balls;
+        this.strikes = strikes;
+        updateDisplay();
     }
 }

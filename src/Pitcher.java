@@ -1,5 +1,4 @@
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -7,12 +6,15 @@ import java.util.ArrayList;
 
 public class Pitcher {
     private Animation pitch;
+    private ArrayList<BufferedImage> pitchAnimation;
+    private Game game;
     private int fastballSkill;
     private int curveballSkill;
-    private int knuckleballSkill;
 
-    private ArrayList<BufferedImage> pitchAnimation;
-    public Pitcher() {
+    public Pitcher(Game game) {
+        this.game = game;
+        this.fastballSkill = (int) (Math.random() * 100); // Example skill level
+        this.curveballSkill = (int) (Math.random() * 100); // Example skill level
         pitchAnimation = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
             String name = "src/PitcherFrames/pitcher" + i + ".png";
@@ -22,14 +24,11 @@ public class Pitcher {
                 System.out.println(e.getMessage());
             }
         }
-        fastballSkill = (int) (Math.random() * 100);
-        curveballSkill = (int) (Math.random() * 100);
-        knuckleballSkill = (int) (Math.random() * 100);
         pitch = new Animation(pitchAnimation, 200);
     }
 
-    public void throwPitch() {
-        pitch.start();
+    public BufferedImage throwPitch() {
+        return pitch.getActiveFrame();
     }
 
     public BufferedImage restImage() {
@@ -39,27 +38,25 @@ public class Pitcher {
             System.out.println(e.getMessage());
             return null;
         }
+    }
 
+    public void throwFastball() {
+        pitch.start();
     }
-    public int getFastballSkill() {
-        return fastballSkill;
-    }
-    public int getCurveballSkill() {
-        return curveballSkill;
-    }
-    public int getKnuckleballSkill() {
-        return knuckleballSkill;
-    }
+
     public Animation getAnimation() {
         return pitch;
     }
 
-    public BufferedImage getFrame() {
-        return pitch.getActiveFrame();
+    public boolean isAnimating() {
+        return pitch.getCurrentFrame() != 0 || (pitch.getCurrentFrame() == 0 && pitch.getActiveFrame() != pitchAnimation.get(0));
     }
 
-    public boolean animationRunning() {
-        return pitch.getCurrentFrame() != 0 || pitch.getActiveFrame() == pitchAnimation.get(0);
+    public int getFastballSkill() {
+        return fastballSkill;
     }
 
+    public int getCurveballSkill() {
+        return curveballSkill;
+    }
 }
