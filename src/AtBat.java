@@ -11,16 +11,13 @@ public class AtBat {
         this.pitcher = pitcher;
         this.hitter = hitter;
         this.game = game;
-        this.balls = 0;
-        this.strikes = 0;
-        this.inPlay = false;
-        this.out = false;
         startAB();
     }
 
     private void startAB() {
         out = false;
         inPlay = false;
+        game.getGraphicsPanel().updateCount(0,0);
         while (strikes < 3 && balls < 4 && !inPlay) {
             boolean isStrike = Math.random() < 0.8;
             if (isStrike) {
@@ -46,8 +43,7 @@ public class AtBat {
     }
 
     private void ballInPlay() {
-        // Logic to handle ball in play
-        out = Math.random() > 0.5; // Example logic
+
     }
 
     public boolean isOut() {

@@ -18,8 +18,7 @@ public class GraphicsPanel extends JPanel {
 
     public GraphicsPanel(Game game) {
         this.game = game;
-        this.message = "";
-        setPreferredSize(new Dimension(800, 600));
+        message = "";
         try {
             background = ImageIO.read(new File("src/background.jpg"));
         } catch (IOException e) {
@@ -38,6 +37,7 @@ public class GraphicsPanel extends JPanel {
         g.drawString("Runs Allowed: " + game.getRunsAllowed(), 50, 90);
         g.drawString("Inning: " + game.getInning(), 50, 110);
         g.drawString("Outs: " + game.getOuts(), 50, 130);
+        g.drawString("At Bat: " + game.getCurrentHitter(), 50, 150);
 
         if (showMessage && message != null) {
             g.setFont(new Font("Serif", Font.BOLD, 48));
@@ -49,6 +49,7 @@ public class GraphicsPanel extends JPanel {
         repaint();
     }
 
+    // make this method better
     public void showMessage(String message, int duration) {
         this.message = message;
         this.showMessage = true;

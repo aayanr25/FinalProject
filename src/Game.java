@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class Game {
     private Pitcher pitcher;
     private ArrayList<Hitter> battingOrder;
+    private Hitter currentHitter;
     private int placeInLineup;
     private int runsAllowed;
     private int outs;
@@ -16,6 +17,7 @@ public class Game {
     public Game() {
         inning = 1;
         initializeBattingOrder();
+        currentHitter = battingOrder.get(0);
     }
     public void setPitcher(Pitcher pitcher) {
         this.pitcher = pitcher;
@@ -48,9 +50,12 @@ public class Game {
     public boolean isGameOver() {
         return gameOver;
     }
+    public String getCurrentHitter() {
+        return currentHitter.getName();
+    }
 
     public void playNextAtBat() {
-        Hitter currentHitter = battingOrder.get(placeInLineup);
+        currentHitter = battingOrder.get(placeInLineup);
         AtBat currentAtBat = new AtBat(pitcher, currentHitter, this);
         if (currentAtBat.isOut()) {
             outs++;
@@ -69,6 +74,7 @@ public class Game {
         graphicsPanel.updateDisplay();
     }
 
+    // add names
     private void initializeBattingOrder() {
         battingOrder = new ArrayList<>();
         for (int i = 0; i < 9; i++) {
