@@ -66,14 +66,17 @@ public class PitcherPanel extends JPanel implements KeyListener, MouseListener, 
             if (button == fastball) {
                 pitchThrown = true;
                 pitcher.throwPitch();
-                game.playNextAtBat();
+                game.getCurrentAtBat().setThrowPitch(true);
             } else if (button == curveball) {
                 pitchThrown = true;
                 pitcher.throwPitch();
-                game.playNextAtBat();
+                game.getCurrentAtBat().setThrowPitch(true);
             } else if (button == knuckleball) {
                 pitchThrown = true;
                 pitcher.throwPitch();
+                game.getCurrentAtBat().setThrowPitch(true);
+            }
+            if (game.getCurrentAtBat().getOutcome() != null) {
                 game.playNextAtBat();
             }
         }

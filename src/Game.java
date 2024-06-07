@@ -4,6 +4,7 @@ public class Game {
     private Pitcher pitcher;
     private ArrayList<Hitter> battingOrder;
     private Hitter currentHitter;
+    private AtBat currentAtBat;
     private int placeInLineup;
     private int runsAllowed;
     private int outs;
@@ -18,6 +19,7 @@ public class Game {
         inning = 1;
         initializeBattingOrder();
         currentHitter = battingOrder.get(0);
+        currentAtBat = new AtBat(pitcher, currentHitter, this);
     }
     public void setPitcher(Pitcher pitcher) {
         this.pitcher = pitcher;
@@ -53,10 +55,14 @@ public class Game {
     public String getCurrentHitter() {
         return currentHitter.getName();
     }
+    public AtBat getCurrentAtBat() {
+        return currentAtBat;
+    }
 
     public void playNextAtBat() {
         currentHitter = battingOrder.get(placeInLineup);
-        AtBat currentAtBat = new AtBat(pitcher, currentHitter, this);
+        currentAtBat = new AtBat(pitcher, currentHitter, this);
+        currentAtBat.startAB();
         if (currentAtBat.isOut()) {
             outs++;
             if (outs >= 3) {

@@ -11,10 +11,10 @@ public class GraphicsPanel extends JPanel {
     private Game game;
     private String message;
     private BufferedImage background;
-    private int balls;
-    private int strikes;
     private Timer messageTimer;
     private boolean showMessage;
+    private int balls;
+    private int strikes;
 
     public GraphicsPanel(Game game) {
         this.game = game;
