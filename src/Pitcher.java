@@ -27,7 +27,7 @@ public class Pitcher {
         pitch = new Animation(pitchAnimation, 200);
     }
 
-    public BufferedImage throwPitch() {
+    public BufferedImage getFrame() {
         return pitch.getActiveFrame();
     }
 
@@ -40,7 +40,7 @@ public class Pitcher {
         }
     }
 
-    public void throwFastball() {
+    public void throwPitch() {
         pitch.start();
     }
 

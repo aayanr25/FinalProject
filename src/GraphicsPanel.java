@@ -19,9 +19,6 @@ public class GraphicsPanel extends JPanel {
     public GraphicsPanel(Game game) {
         this.game = game;
         this.message = "";
-        this.balls = 0;
-        this.strikes = 0;
-        this.showMessage = false;
         setPreferredSize(new Dimension(800, 600));
         try {
             background = ImageIO.read(new File("src/background.jpg"));

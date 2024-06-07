@@ -30,18 +30,17 @@ public class AtBat {
                 } else {
                     strikes++;
                     game.getGraphicsPanel().updateCount(balls, strikes);
-                    game.getGraphicsPanel().showMessage("STRIKE", 2000); // Notify UI with "STRIKE" message for 2 seconds
+                    game.getGraphicsPanel().showMessage("STRIKE", 2000);
                 }
             } else {
                 balls++;
                 game.getGraphicsPanel().updateCount(balls, strikes);
-                game.getGraphicsPanel().showMessage("BALL", 2000); // Notify UI with "BALL" message for 2 seconds
+                game.getGraphicsPanel().showMessage("BALL", 2000);
             }
-            // Sleep for a short duration to make the message visible before the next update
             try {
                 Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         }
     }

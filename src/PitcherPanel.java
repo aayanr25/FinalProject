@@ -47,8 +47,9 @@ public class PitcherPanel extends JPanel implements KeyListener, MouseListener, 
         g.drawImage(background, 0, 0, null);
         fastball.setLocation(50, 400);
         curveball.setLocation(150, 400);
+        knuckleball.setLocation(250, 400);
         if (pitchThrown) {
-            g.drawImage(pitcher.throwPitch(), 100, 60, null);
+            g.drawImage(pitcher.getFrame(), 100, 60, null);
         } else {
             g.drawImage(pitcher.restImage(), 100, 60, null);
         }
@@ -64,12 +65,16 @@ public class PitcherPanel extends JPanel implements KeyListener, MouseListener, 
             JButton button = (JButton) e.getSource();
             if (button == fastball) {
                 pitchThrown = true;
-                pitcher.throwFastball();
-                game.playNextAtBat(); // Trigger the game logic for the next at-bat
+                pitcher.throwPitch();
+                game.playNextAtBat();
             } else if (button == curveball) {
                 pitchThrown = true;
-                // Implement curveball logic if needed
-                game.playNextAtBat(); // Trigger the game logic for the next at-bat
+                pitcher.throwPitch();
+                game.playNextAtBat();
+            } else if (button == knuckleball) {
+                pitchThrown = true;
+                pitcher.throwPitch();
+                game.playNextAtBat();
             }
         }
     }
