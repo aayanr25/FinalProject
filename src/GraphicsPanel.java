@@ -31,7 +31,7 @@ public class GraphicsPanel extends JPanel {
         super.paintComponent(g);
         g.drawImage(background, 0,0, null);
         g.setColor(Color.BLACK);
-        g.setFont(new Font("Serif", Font.PLAIN, 14));
+        g.setFont(new Font("SansSerif", Font.PLAIN, 14));
         g.drawString("Balls: " + game.getCurrentAtBat().getBalls(), 50, 50);
         g.drawString("Strikes: " + game.getCurrentAtBat().getStrikes(), 50, 70);
         g.drawString("Runs Allowed: " + game.getRunsAllowed(), 50, 90);
@@ -49,19 +49,15 @@ public class GraphicsPanel extends JPanel {
         repaint();
     }
 
-    // make this method better
     public void showMessage(String message, int duration) {
         this.message = message;
         showMessage = true;
         repaint();
-
         if (messageTimer != null) {
             messageTimer.cancel();
         }
-
         messageTimer = new Timer();
-        messageTimer.schedule(new TimerTask() {
-            @Override
+        messageTimer.schedule(new TimerTask() {     // https://www.geeksforgeeks.org/java-util-timertask-class-java/
             public void run() {
                 showMessage = false;
                 updateDisplay();

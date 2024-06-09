@@ -144,7 +144,7 @@ public class Game {
             }
             onFirst = true;
         } else {
-            // Handle "Out" and any other unexpected outcomes
+
         }
 
         graphicsPanel.updateDisplay();
@@ -164,7 +164,6 @@ public class Game {
     public void incrementOuts() {
         outs++;
     }
-
 
     public Pitcher getPitcher() {
         return pitcher;
