@@ -29,8 +29,8 @@ public class MainFrame implements Runnable {
             panel.repaint();
             try {
                 Thread.sleep(50);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         }
     }

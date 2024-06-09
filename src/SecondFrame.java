@@ -27,14 +27,15 @@ public class SecondFrame extends JFrame implements Runnable {
 
     @Override
     public void run() {
-        while (!game.isGameOver()) {
+        while(true) {
+            panel.repaint();
             try {
-                Thread.sleep(1000); // Simulate time between innings
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                Thread.sleep(50);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         }
-        System.out.println("Game over! Runs allowed: " + game.getRunsAllowed());
+
     }
 
 }

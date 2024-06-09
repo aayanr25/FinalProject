@@ -4,6 +4,7 @@ public class Main {
         game.setPitcher(new Pitcher(game));
         MainFrame m = new MainFrame(game);
         SecondFrame s = new SecondFrame(game);
+        game.startGame();
     }
 }
 

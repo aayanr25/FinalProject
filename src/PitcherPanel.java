@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+
 public class PitcherPanel extends JPanel implements KeyListener, MouseListener, ActionListener {
     private BufferedImage background;
     private JButton fastball;
@@ -16,15 +17,18 @@ public class PitcherPanel extends JPanel implements KeyListener, MouseListener, 
     private boolean pitchThrown;
     private Timer animationTimer;
 
+
     public PitcherPanel(Game game) {
         this.game = game;
         this.pitcher = game.getPitcher();
+
 
         try {
             background = ImageIO.read(new File("src/background2.jpg"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+
 
         pitchThrown = false;
         fastball = new JButton("Fastball");
@@ -37,9 +41,11 @@ public class PitcherPanel extends JPanel implements KeyListener, MouseListener, 
         add(knuckleball);
         knuckleball.addActionListener(this);
 
+
         animationTimer = new Timer(50, this);
         animationTimer.start();
     }
+
 
     @Override
     public void paintComponent(Graphics g) {
@@ -55,7 +61,7 @@ public class PitcherPanel extends JPanel implements KeyListener, MouseListener, 
         }
     }
 
-    @Override
+
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof Timer) {
             if (pitchThrown) {
@@ -67,14 +73,17 @@ public class PitcherPanel extends JPanel implements KeyListener, MouseListener, 
                 pitchThrown = true;
                 pitcher.throwPitch();
                 game.getCurrentAtBat().setThrowPitch(true);
+                game.getCurrentAtBat().pitch();
             } else if (button == curveball) {
                 pitchThrown = true;
                 pitcher.throwPitch();
                 game.getCurrentAtBat().setThrowPitch(true);
+                game.getCurrentAtBat().pitch();
             } else if (button == knuckleball) {
                 pitchThrown = true;
                 pitcher.throwPitch();
                 game.getCurrentAtBat().setThrowPitch(true);
+                game.getCurrentAtBat().pitch();
             }
             if (game.getCurrentAtBat().getOutcome() != null) {
                 game.playNextAtBat();
@@ -82,26 +91,34 @@ public class PitcherPanel extends JPanel implements KeyListener, MouseListener, 
         }
     }
 
+
     @Override
     public void keyTyped(KeyEvent e) {}
+
 
     @Override
     public void keyPressed(KeyEvent e) {}
 
+
     @Override
     public void keyReleased(KeyEvent e) {}
+
 
     @Override
     public void mouseClicked(MouseEvent e) {}
 
+
     @Override
     public void mousePressed(MouseEvent e) {}
+
 
     @Override
     public void mouseReleased(MouseEvent e) {}
 
+
     @Override
     public void mouseEntered(MouseEvent e) {}
+
 
     @Override
     public void mouseExited(MouseEvent e) {}

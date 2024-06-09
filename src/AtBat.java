@@ -19,44 +19,56 @@ public class AtBat {
     public void startAB() {
         out = false;
         inPlay = false;
-        game.getGraphicsPanel().updateCount(0,0);
-        while (strikes < 3 && balls < 4 && !inPlay) {
-            if (throwPitch) {
-                pitch();
-                throwPitch = false;
-            }
-        }
+        balls = 0;
+        strikes = 0;
+        game.getGraphicsPanel().updateCount(balls, strikes);
     }
+
     public void setThrowPitch(boolean value) {
         throwPitch = value;
     }
+
     public void pitch() {
         boolean isStrike = Math.random() < 0.6;
         if (isStrike) {
             if (Math.random() > 0.65) {
                 inPlay = true;
                 ballInPlay();
+                game.showResultMessage(outcome.toUpperCase());
             } else {
                 strikes++;
                 game.getGraphicsPanel().updateCount(balls, strikes);
-                game.getGraphicsPanel().showMessage("STRIKE", 2000);
+                if (strikes == 3) {
+                    outcome = "Strikeout";
+                    game.showResultMessage("STRIKEOUT");
+                    out = true;
+                } else {
+                    game.showResultMessage("STRIKE " + strikes);
+                }
             }
         } else {
             balls++;
-            game.getGraphicsPanel().updateCount(balls, strikes);
-            game.getGraphicsPanel().showMessage("BALL", 2000);
+            if (balls == 4) {
+                outcome = "Walk";
+                game.showResultMessage("WALK");
+            } else {
+                game.showResultMessage("BALL " + balls);
+            }
         }
         try {
             Thread.sleep(500);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        if (strikes == 3) {
-            outcome = "Strikeout";
-        } else if (balls == 4) {
-            outcome = "Walk";
+
+        if (out) {
+            game.incrementOuts();
         }
     }
+    public boolean getThrowPitch() {
+        return throwPitch;
+    }
+
 
     public void ballInPlay() {
         double num = Math.random();

@@ -27,13 +27,13 @@ public class GraphicsPanel extends JPanel {
     }
 
     @Override
-    protected void paintComponent(Graphics g) {
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(background, 0,0, null);
         g.setColor(Color.BLACK);
         g.setFont(new Font("Serif", Font.PLAIN, 14));
-        g.drawString("Balls: " + balls, 50, 50);
-        g.drawString("Strikes: " + strikes, 50, 70);
+        g.drawString("Balls: " + game.getCurrentAtBat().getBalls(), 50, 50);
+        g.drawString("Strikes: " + game.getCurrentAtBat().getStrikes(), 50, 70);
         g.drawString("Runs Allowed: " + game.getRunsAllowed(), 50, 90);
         g.drawString("Inning: " + game.getInning(), 50, 110);
         g.drawString("Outs: " + game.getOuts(), 50, 130);
@@ -52,7 +52,7 @@ public class GraphicsPanel extends JPanel {
     // make this method better
     public void showMessage(String message, int duration) {
         this.message = message;
-        this.showMessage = true;
+        showMessage = true;
         updateDisplay();
 
         if (messageTimer != null) {
