@@ -53,7 +53,7 @@ public class GraphicsPanel extends JPanel {
     public void showMessage(String message, int duration) {
         this.message = message;
         showMessage = true;
-        updateDisplay();
+        repaint();
 
         if (messageTimer != null) {
             messageTimer.cancel();

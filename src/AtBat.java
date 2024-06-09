@@ -87,6 +87,9 @@ public class AtBat {
     public String getOutcome() {
         return outcome;
     }
+    public boolean isABOver() {
+        return outcome != null;
+    }
 
     public boolean isOut() {
         return out;

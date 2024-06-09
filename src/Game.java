@@ -76,12 +76,80 @@ public class Game {
 
 
     public void playNextAtBat() {
+        if (currentAtBat.isABOver()) {
+            handleBasepaths();
+        }
+        if (outs >= 3) {
+            inning++;
+            outs = 0;
+            showResultMessage("INNING " + inning);
+        }
         placeInLineup = (placeInLineup + 1) % battingOrder.size();
         currentHitter = battingOrder.get(placeInLineup);
         currentAtBat = new AtBat(pitcher, currentHitter, this);
         currentAtBat.startAB();
         graphicsPanel.updateDisplay();
     }
+
+    private void handleBasepaths() {
+        String outcome = currentAtBat.getOutcome();
+        if (outcome.equals("Single")) {
+            if (onThird) {
+                runsAllowed++;
+                onThird = false;
+            }
+            if (onSecond) {
+                onThird = true;
+                onSecond = false;
+            }
+            if (onFirst) {
+                onSecond = true;
+            }
+            onFirst = true;
+        } else if (outcome.equals("Double")) {
+            if (onThird) {
+                runsAllowed++;
+                onThird = false;
+            }
+            if (onSecond) {
+                runsAllowed++;
+                onSecond = false;
+            }
+            if (onFirst) {
+                onThird = true;
+                onFirst = false;
+            }
+            onSecond = true;
+        } else if (outcome.equals("Home Run")) {
+            if (onThird) {
+                runsAllowed++;
+                onThird = false;
+            }
+            if (onSecond) {
+                runsAllowed++;
+                onSecond = false;
+            }
+            if (onFirst) {
+                runsAllowed++;
+                onFirst = false;
+            }
+            runsAllowed++;
+        } else if (outcome.equals("Walk")) {
+            if (onFirst && onSecond && onThird) {
+                runsAllowed++;
+            } else if (onFirst && onSecond) {
+                onThird = true;
+            } else if (onFirst) {
+                onSecond = true;
+            }
+            onFirst = true;
+        } else {
+            // Handle "Out" and any other unexpected outcomes
+        }
+
+        graphicsPanel.updateDisplay();
+    }
+
 
 
 
