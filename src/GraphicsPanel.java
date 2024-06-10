@@ -16,6 +16,7 @@ public class GraphicsPanel extends JPanel {
     private int balls;
     private int strikes;
 
+
     public GraphicsPanel(Game game) {
         this.game = game;
         message = "";
@@ -38,6 +39,7 @@ public class GraphicsPanel extends JPanel {
         g.drawString("Inning: " + game.getInning(), 50, 110);
         g.drawString("Outs: " + game.getOuts(), 50, 130);
         g.drawString("At Bat: " + game.getCurrentHitter(), 50, 150);
+        g.drawString("Runners On: " + game.getRunnersOn(), 50, 170);
 
         if (showMessage && message != null) {
             g.setFont(new Font("Serif", Font.BOLD, 48));

@@ -13,6 +13,7 @@ public class Game {
     private boolean onFirst;
     private boolean onSecond;
     private boolean onThird;
+    private ArrayList<String> runners;
     private boolean gameOver;
     private GraphicsPanel graphicsPanel;
 
@@ -81,6 +82,9 @@ public class Game {
         }
         if (outs >= 3) {
             inning++;
+            onFirst = false;
+            onSecond = false;
+            onThird = false;
             outs = 0;
             showResultMessage("INNING " + inning);
         }
@@ -151,9 +155,24 @@ public class Game {
     }
 
 
+    public String getRunnersOn() {
+        String str = "None";
+        if (onFirst || onSecond || onThird) {
+            str = "";
+        }
+        if (onFirst) {
+            str += "First";
+        }
+        if (onSecond) {
+            str += ", Second";
+        }
+        if (onThird) {
+            str += ", Third";
+        }
+        return str;
+    }
 
 
-    // add names
     private void initializeBattingOrder() {
         battingOrder = new ArrayList<>();
         for (int i = 0; i < 9; i++) {
