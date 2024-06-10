@@ -77,22 +77,31 @@ public class Game {
 
 
     public void playNextAtBat() {
-        if (currentAtBat.isABOver()) {
-            handleBasepaths();
+        if (!gameOver) {
+            if (currentAtBat.isABOver()) {
+                handleBasepaths();
+            }
+            if (outs >= 3) {
+                inning++;
+                onFirst = false;
+                onSecond = false;
+                onThird = false;
+                outs = 0;
+                showResultMessage("INNING " + inning);
+            }
+            if (inning > 3) {
+                gameOver = true;
+            }
+            placeInLineup = (placeInLineup + 1) % battingOrder.size();
+            currentHitter = battingOrder.get(placeInLineup);
+            currentAtBat = new AtBat(pitcher, currentHitter, this);
+            currentAtBat.startAB();
+            graphicsPanel.updateDisplay();
+        } else {
+            showResultMessage("GAME OVER\nRUNS ALLOWED: " + runsAllowed);
+            System.exit(0);
+
         }
-        if (outs >= 3) {
-            inning++;
-            onFirst = false;
-            onSecond = false;
-            onThird = false;
-            outs = 0;
-            showResultMessage("INNING " + inning);
-        }
-        placeInLineup = (placeInLineup + 1) % battingOrder.size();
-        currentHitter = battingOrder.get(placeInLineup);
-        currentAtBat = new AtBat(pitcher, currentHitter, this);
-        currentAtBat.startAB();
-        graphicsPanel.updateDisplay();
     }
 
     private void handleBasepaths() {
