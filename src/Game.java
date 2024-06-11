@@ -87,18 +87,25 @@ public class Game {
                 onSecond = false;
                 onThird = false;
                 outs = 0;
+                if (inning > 3) {
+                    gameOver = true;
+                    showResultMessage("GAME OVER\nRUNS ALLOWED: " + runsAllowed);
+                    try {
+                        Thread.sleep(3000);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                    System.exit(0);
+                }
                 showResultMessage("INNING " + inning);
             }
-            if (inning > 3) {
-                gameOver = true;
-            }
+
             placeInLineup = (placeInLineup + 1) % battingOrder.size();
             currentHitter = battingOrder.get(placeInLineup);
             currentAtBat = new AtBat(pitcher, currentHitter, this);
             currentAtBat.startAB();
             graphicsPanel.updateDisplay();
         } else {
-            showResultMessage("GAME OVER\nRUNS ALLOWED: " + runsAllowed);
             System.exit(0);
 
         }
