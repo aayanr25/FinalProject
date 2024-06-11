@@ -29,7 +29,7 @@ public class AtBat {
     }
 
     public void pitch() {
-        boolean isStrike = Math.random() < 0.6;
+        boolean isStrike = Math.random() < 0.75;
         if (isStrike) {
             if (Math.random() > 0.65) {
                 inPlay = true;
