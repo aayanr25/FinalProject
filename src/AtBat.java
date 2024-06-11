@@ -79,7 +79,7 @@ public class AtBat {
         } else if (num > 0.5) {
             outcome = "Single";
         } else {
-            outcome = "Out";
+            outcome = "Ground Out";
             out = true;
         }
     }
